@@ -9,5 +9,7 @@ public interface TeamService {
 	Team findByName(String number);
 	
 	List<Team> findAllTeams();
+	
+	Team findById(Long id);
 
 }
