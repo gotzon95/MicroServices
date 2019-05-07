@@ -1,7 +1,6 @@
 package com.certiorem.microservices.DatabaseService.service;
 
 import java.util.List;
-
 import com.certiorem.microservices.ModelDataService.Category;
 
 public interface CategoryService {
@@ -11,5 +10,9 @@ public interface CategoryService {
 	List<Category> findAllCategories();
 	
 	Category findById(Long id);
+
+	Category save(Category category);
+
+	void delete(Long id);
 
 }

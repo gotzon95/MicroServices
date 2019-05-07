@@ -1,7 +1,6 @@
 package com.certiorem.microservices.DatabaseService.service;
 
 import java.util.List;
-
 import com.certiorem.microservices.ModelDataService.Team;
 
 public interface TeamService {
@@ -11,5 +10,9 @@ public interface TeamService {
 	List<Team> findAllTeams();
 	
 	Team findById(Long id);
+
+	Team save(Team team);
+
+	void delete(Long id);
 
 }

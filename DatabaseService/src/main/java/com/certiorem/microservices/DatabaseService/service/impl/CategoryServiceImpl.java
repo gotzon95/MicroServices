@@ -30,4 +30,13 @@ public class CategoryServiceImpl implements CategoryService {
 		return categoryRepository.getOne(id);
 	}
 
+	public Category save(Category category) {
+		
+		return categoryRepository.save(category);
+	}
+
+	public void delete(Long id) {
+		categoryRepository.deleteById(id);
+	}
+
 }

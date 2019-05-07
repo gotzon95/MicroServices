@@ -30,6 +30,14 @@ public class DriverServiceImpl implements DriverService {
 		return driverRepository.getOne(id);
 	}
 
+	public Driver save(Driver driver) {
+		return driverRepository.save(driver);
+	}
+
+	public void delete(Long id) {
+		driverRepository.deleteById(id);
+	}
+
 
 
 }

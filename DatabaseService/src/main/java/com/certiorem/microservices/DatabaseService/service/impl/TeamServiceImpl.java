@@ -30,4 +30,12 @@ public class TeamServiceImpl implements TeamService {
 		return teamRepository.getOne(id);
 	}
 
+	public Team save(Team team) {
+		return teamRepository.save(team);
+	}
+
+	public void delete(Long id) {
+		teamRepository.deleteById(id);
+	}
+
 }
