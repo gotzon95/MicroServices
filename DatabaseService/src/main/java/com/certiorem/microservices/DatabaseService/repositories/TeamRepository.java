@@ -6,8 +6,8 @@ import org.springframework.stereotype.Repository;
 import com.certiorem.microservices.ModelDataService.Team;
 
 @Repository
-public interface TeamRepository extends JpaRepository<Team, Long> {
+public interface TeamRepository extends JpaRepository<Team, Integer> {
 
-    Team findByName(String name);
+    Team findByNombre(String name);
 
 }

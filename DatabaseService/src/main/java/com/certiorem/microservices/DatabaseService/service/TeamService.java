@@ -9,10 +9,10 @@ public interface TeamService {
 	
 	List<Team> findAllTeams();
 	
-	Team findById(Long id);
+	Team findById(Integer id);
 
 	Team save(Team team);
 
-	void delete(Long id);
+	void delete(Integer id);
 
 }

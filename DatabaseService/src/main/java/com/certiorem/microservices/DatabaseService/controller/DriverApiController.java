@@ -1,36 +1,43 @@
 package com.certiorem.microservices.DatabaseService.controller;
 
-import java.util.Map;
+import java.util.List;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import com.certiorem.microservices.DatabaseService.service.DriverService;
 import com.certiorem.microservices.ModelDataService.Driver;
-import com.certiorem.microservices.ModelDataService.Team;
 
 @RestController
 class DriverApiController {
 
 	public static final Logger logger = LoggerFactory.getLogger(DriverApiController.class);
 
-	
 	@Autowired
 	private DriverService driverService;
-
 	
-	@RequestMapping("/driver/{name}")
-	Driver showDriver(@PathVariable String name) {
+	@GetMapping("/driver")
+	Driver showDriver(@RequestParam String name) {
 
 		return getDriverInfo(name);
 	}
 	
-	@RequestMapping("/driver/delete")
-	void deletedriv(@PathVariable Long id) {
+	@RequestMapping("/driver/readAllDrivers")
+	List<Driver> showAllDrivers() {
+		List<Driver> drivers = driverService.findAllDrivers();
+		return drivers;
+	}
+	
+	@DeleteMapping("/driver/deleteItem")
+	void deletedriv(@PathVariable Integer id) {
 		deleteDriver(id);
 	}
 
@@ -42,27 +49,25 @@ class DriverApiController {
 		return driver;
 	}
 	
-	@RequestMapping("/driver/create")
-	private Driver createDriver(@RequestBody Map<String, String> body) {
-		String name = body.get("name");
-		
-		return driverService.save(new Driver());
+	@PostMapping("/driver/createItem")
+	Driver createDrvr(@RequestBody Driver driver) {
+		return createDriver(driver);
 	}
 	
-	@RequestMapping("/driver/update/{id}")
-	public Driver update(@PathVariable String id, @RequestBody Map<String, String> body) {
-		long driverId = Long.parseLong(id);
-		
-		Driver driver = driverService.findById(driverId);
-		driver.setNombre(body.get("name"));
-		//driver.setVictorias(body.get("victory"));
+	private Driver createDriver(Driver driver) {
+		System.out.println("JON - createDriver, driver: " + driver);
 		return driverService.save(driver);
 	}
 	
-	private void deleteDriver(@PathVariable Long id) {
+	private void deleteDriver(@PathVariable Integer id) {
 		driverService.delete(id);
 		
 		System.out.println("Deleted");
+	}
+	
+	@PostMapping("/driver/updateItem")
+	Driver updateDriver(@RequestBody Driver driver) {
+		return createDriver(driver);
 	}
 	
 }

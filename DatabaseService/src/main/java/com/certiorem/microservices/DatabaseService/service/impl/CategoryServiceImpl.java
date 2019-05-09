@@ -19,14 +19,14 @@ public class CategoryServiceImpl implements CategoryService {
 	private CategoryRepository categoryRepository;
 	
 	public Category findByName(String name) {
-		return categoryRepository.findByName(name);
+		return categoryRepository.findByNombre(name);
 	}
 	
 	public List<Category> findAllCategories() {
 		return categoryRepository.findAll();
 	}
 	
-	public Category findById(Long id) {
+	public Category findById(Integer id) {
 		return categoryRepository.getOne(id);
 	}
 
@@ -35,7 +35,7 @@ public class CategoryServiceImpl implements CategoryService {
 		return categoryRepository.save(category);
 	}
 
-	public void delete(Long id) {
+	public void delete(Integer id) {
 		categoryRepository.deleteById(id);
 	}
 

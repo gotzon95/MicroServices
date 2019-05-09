@@ -19,14 +19,14 @@ public class TeamServiceImpl implements TeamService {
 	private TeamRepository teamRepository;
 	
 	public Team findByName(String name) {
-		return teamRepository.findByName(name);
+		return teamRepository.findByNombre(name);
 	}
 
 	public List<Team> findAllTeams() {
 		return teamRepository.findAll();
 	}
 
-	public Team findById(Long id) {
+	public Team findById(Integer id) {
 		return teamRepository.getOne(id);
 	}
 
@@ -34,8 +34,9 @@ public class TeamServiceImpl implements TeamService {
 		return teamRepository.save(team);
 	}
 
-	public void delete(Long id) {
+	public void delete(Integer id) {
 		teamRepository.deleteById(id);
 	}
+
 
 }

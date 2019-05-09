@@ -6,9 +6,9 @@ import org.springframework.stereotype.Repository;
 import com.certiorem.microservices.ModelDataService.Category;
 
 @Repository
-public interface CategoryRepository extends JpaRepository<Category, Long> {
+public interface CategoryRepository extends JpaRepository<Category, Integer> {
 
-	Category findByName(String name);
+	Category findByNombre(String name);
 
 	void deleteById(Long id);
 

@@ -1,13 +1,16 @@
 package com.certiorem.microservices.DatabaseService.controller;
 
-import java.util.Map;
+import java.util.List;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import com.certiorem.microservices.DatabaseService.service.CategoryService;
 import com.certiorem.microservices.ModelDataService.Category;
@@ -16,16 +19,20 @@ import com.certiorem.microservices.ModelDataService.Category;
 class CategoryApiController {
 
 	public static final Logger logger = LoggerFactory.getLogger(CategoryApiController.class);
-
 	
 	@Autowired
 	private CategoryService categoryService;
-
 	
-	@RequestMapping("/category/{name}")
-	Category showCategory(@PathVariable String name) {
+	@GetMapping("/category")
+	Category showCategory(@RequestParam String name) {
 
 		return getCategoryInfo(name);
+	}
+	
+	@RequestMapping("/category/readAllCategories")
+	List<Category> showAllCategories() {
+		List<Category> categories = categoryService.findAllCategories();
+		return categories;
 	}
 
 	private Category getCategoryInfo(String name) {
@@ -36,31 +43,30 @@ class CategoryApiController {
 		return category;
 	}
 	
-	@RequestMapping("/category/delete")
-	void deleteCat(@PathVariable Long id) {
+	@RequestMapping("/category/deleteItem")
+	void deleteCat(@PathVariable Integer id) {
 		deleteCategory(id);
 	}
 	
-	@RequestMapping("/category/create")
-	private Category createCategory(@RequestBody Map<String, String> body) {
-		String name = body.get("name");
-		
-		return categoryService.save(new Category());
+	@PostMapping("/category/createItem")
+	Category createCat(@RequestBody Category category) {
+		return createCategory(category);
 	}
 	
-	@RequestMapping("/driver/update/{id}")
-	public Category update(@PathVariable String id, @RequestBody Map<String, String> body) {
-		long categoryId = Long.parseLong(id);
-		
-		Category category = categoryService.findById(categoryId);
-		category.setNombre(body.get("name"));
-		//driver.setVictorias(body.get("victory"));
+	private Category createCategory(Category category) {
+		System.out.println("JON - createCategory, category: " + category);
 		return categoryService.save(category);
 	}
 	
-	private void deleteCategory(Long id) {
+	private void deleteCategory(Integer id) {
 		categoryService.delete(id);
 		
 		System.out.println("Deleted");
 	}
+	
+	@PostMapping("/category/updateItem")
+	Category updateCategory(@RequestBody Category category) {
+		return createCategory(category);
+	}
+	
 }

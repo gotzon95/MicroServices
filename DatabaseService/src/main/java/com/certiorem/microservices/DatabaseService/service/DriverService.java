@@ -9,9 +9,9 @@ public interface DriverService {
 
 	List<Driver> findAllDrivers();
 	
-	Driver findById(Long id);
+	Driver findById(Integer id);
 
 	Driver save(Driver driver);
 
-	void delete(Long id);
+	void delete(Integer id);
 }

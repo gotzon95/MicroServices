@@ -6,8 +6,8 @@ import org.springframework.stereotype.Repository;
 import com.certiorem.microservices.ModelDataService.Driver;
 
 @Repository
-public interface DriverRepository extends JpaRepository<Driver, Long> {
+public interface DriverRepository extends JpaRepository<Driver, Integer> {
 
-	Driver findByName(String name);
+	 Driver findByNombre(String name);
 
 }

@@ -34,9 +34,6 @@ public class Team {
 	@Column(name = "RESPONSABLE", nullable = false)
 	private String responsable;
 	
-	@Column(name = "CAMPEONATO", nullable = false)
-	private String campeonato;
-	
 	@ManyToMany
 	@JoinColumn(name = "pilotos")
 	private List<Driver> pilotos;
@@ -45,27 +42,6 @@ public class Team {
 	@JoinColumn(name = "categorias")
 	private List<Category> categorias;
 	
-	
-	public Team() {
-
-	}
-
-
-	public Team(Integer id, String nombre, Integer fundado, Integer victorias, String motorizador, String responsable,
-			String campeonato, List<Driver> pilotos, List<Category> categorias) {
-		super();
-		this.id = id;
-		this.nombre = nombre;
-		this.fundado = fundado;
-		this.victorias = victorias;
-		this.motorizador = motorizador;
-		this.responsable = responsable;
-		this.campeonato = campeonato;
-		this.pilotos = pilotos;
-		this.categorias = categorias;
-	}
-
-
 	public Integer getId() {
 		return id;
 	}
@@ -125,17 +101,6 @@ public class Team {
 		this.responsable = responsable;
 	}
 
-
-	public String getCampeonato() {
-		return campeonato;
-	}
-
-
-	public void setCampeonato(String campeonato) {
-		this.campeonato = campeonato;
-	}
-
-
 	public List<Driver> getPilotos() {
 		return pilotos;
 	}
@@ -159,8 +124,7 @@ public class Team {
 	@Override
 	public String toString() {
 		return "Team [id=" + id + ", nombre=" + nombre + ", fundado=" + fundado + ", victorias=" + victorias
-				+ ", motorizador=" + motorizador + ", responsable=" + responsable + ", campeonato=" + campeonato
-				+ ", pilotos=" + pilotos + ", categorias=" + categorias + "]";
+				+ ", motorizador=" + motorizador + ", responsable=" + responsable + ", pilotos=" + pilotos + ", categorias=" + categorias + "]";
 	}
 
 

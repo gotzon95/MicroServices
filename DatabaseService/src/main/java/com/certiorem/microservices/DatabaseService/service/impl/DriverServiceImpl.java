@@ -19,14 +19,14 @@ public class DriverServiceImpl implements DriverService {
 	private DriverRepository driverRepository;
 	
 	public Driver findByName(String name) {
-		return driverRepository.findByName(name);
+		return driverRepository.findByNombre(name);
 	}
 	
 	public List<Driver> findAllDrivers() {
 		return driverRepository.findAll();
 	}
 
-	public Driver findById(Long id) {
+	public Driver findById(Integer id) {
 		return driverRepository.getOne(id);
 	}
 
@@ -34,7 +34,7 @@ public class DriverServiceImpl implements DriverService {
 		return driverRepository.save(driver);
 	}
 
-	public void delete(Long id) {
+	public void delete(Integer id) {
 		driverRepository.deleteById(id);
 	}
 
