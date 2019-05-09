@@ -24,9 +24,9 @@ class CategoryApiController {
 	private CategoryService categoryService;
 	
 	@GetMapping("/category")
-	Category showCategory(@RequestParam String name) {
+	Category showCategory(@RequestParam String id) {
 
-		return getCategoryInfo(name);
+		return getCategoryInfo(id);
 	}
 	
 	@RequestMapping("/category/readAllCategories")
@@ -35,9 +35,9 @@ class CategoryApiController {
 		return categories;
 	}
 
-	private Category getCategoryInfo(String name) {
-		System.out.println(name);
-		Category category = categoryService.findByName(name);
+	private Category getCategoryInfo(String id) {
+		System.out.println(id);
+		Category category = categoryService.findById(Integer.parseInt(id));
 		System.out.println(category);
 		
 		return category;
