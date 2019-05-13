@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import com.certiorem.microservices.DatabaseService.service.TeamService;
 import com.certiorem.microservices.ModelDataService.Team;
+import com.certiorem.microservices.constants.TeamConstrants;
 
 @RestController
 class TeamApiController {
@@ -24,25 +25,25 @@ class TeamApiController {
 	@Autowired
 	private TeamService teamService;
 
-	@GetMapping("/team")
-	Team showTeam(@RequestParam String name) {
-		return getTeamInfo(name);
+	@GetMapping(TeamConstrants.TEAM_CLASS_PARAM)
+	Team showTeam(@RequestParam Integer id) {
+		return getTeamInfo(id);
 	}
 	
-	@RequestMapping("/team/readAllTeams")
+	@RequestMapping(TeamConstrants.TEAM_CLASS_PARAM + TeamConstrants.TEAM_MICROSERVICE_READ)
 	List<Team> showAllTeams() {
 		List<Team> teams = teamService.findAllTeams();
 		return teams;
 	}
 
-	@DeleteMapping("/team/deleteItem")
+	@DeleteMapping(TeamConstrants.TEAM_CLASS_PARAM + TeamConstrants.TEAM_MICROSERVICE_DELETE)
 	void deleteTm(@RequestParam Integer id) {
 		deleteTeam(id);
 	}
 
-	private Team getTeamInfo(String name) {
-		System.out.println(name);
-		Team team = teamService.findByName(name);
+	private Team getTeamInfo(Integer id) {
+		System.out.println(id);
+		Team team = teamService.findById(id);
 		System.out.println(team);
 		return team;
 	}
@@ -52,7 +53,7 @@ class TeamApiController {
 		return teamService.save(team);
 	}
 
-	@PostMapping("/team/createItem")
+	@PostMapping(TeamConstrants.TEAM_CLASS_PARAM + TeamConstrants.TEAM_MICROSERVICE_CREATE)
 	Team createTeam(@RequestBody Team team) {
 		return createTm(team);
 	}
@@ -63,7 +64,7 @@ class TeamApiController {
 		System.out.println("Deleted");
 	}
 	
-	@PostMapping("/team/updateItem")
+	@PostMapping(TeamConstrants.TEAM_CLASS_PARAM + TeamConstrants.TEAM_MICROSERVICE_UPDATE)
 	Team updateTeam(@RequestBody Team team) {
 		return createTeam(team);
 	}

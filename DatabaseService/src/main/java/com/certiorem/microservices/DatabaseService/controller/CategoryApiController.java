@@ -5,8 +5,8 @@ import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import com.certiorem.microservices.DatabaseService.service.CategoryService;
 import com.certiorem.microservices.ModelDataService.Category;
+import com.certiorem.microservices.constants.CategoryConstrants;
 
 @RestController
 class CategoryApiController {
@@ -23,32 +24,32 @@ class CategoryApiController {
 	@Autowired
 	private CategoryService categoryService;
 	
-	@GetMapping("/category")
-	Category showCategory(@RequestParam String id) {
+	@GetMapping(CategoryConstrants.CATEGORY_CLASS_PARAM)
+	Category showCategory(@RequestParam Integer id) {
 
 		return getCategoryInfo(id);
 	}
 	
-	@RequestMapping("/category/readAllCategories")
+	@RequestMapping(CategoryConstrants.CATEGORY_CLASS_PARAM + CategoryConstrants.CATEGORY_MICROSERVICE_READ)
 	List<Category> showAllCategories() {
 		List<Category> categories = categoryService.findAllCategories();
 		return categories;
 	}
 
-	private Category getCategoryInfo(String id) {
+	private Category getCategoryInfo(Integer id) {
 		System.out.println(id);
-		Category category = categoryService.findById(Integer.parseInt(id));
+		Category category = categoryService.findById(id);
 		System.out.println(category);
 		
 		return category;
 	}
 	
-	@RequestMapping("/category/deleteItem")
-	void deleteCat(@PathVariable Integer id) {
+	@DeleteMapping(CategoryConstrants.CATEGORY_CLASS_PARAM + CategoryConstrants.CATEGORY_MICROSERVICE_DELETE)
+	void deleteCat(@RequestParam Integer id) {
 		deleteCategory(id);
 	}
 	
-	@PostMapping("/category/createItem")
+	@PostMapping(CategoryConstrants.CATEGORY_CLASS_PARAM + CategoryConstrants.CATEGORY_MICROSERVICE_CREATE)
 	Category createCat(@RequestBody Category category) {
 		return createCategory(category);
 	}
@@ -64,7 +65,7 @@ class CategoryApiController {
 		System.out.println("Deleted");
 	}
 	
-	@PostMapping("/category/updateItem")
+	@PostMapping(CategoryConstrants.CATEGORY_CLASS_PARAM + CategoryConstrants.CATEGORY_MICROSERVICE_UPDATE)
 	Category updateCategory(@RequestBody Category category) {
 		return createCategory(category);
 	}

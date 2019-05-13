@@ -4,6 +4,7 @@ import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
 
 import com.certiorem.microservices.ModelDataService.Category;
+import com.certiorem.microservices.constants.CategoryConstrants;
 import com.certiorem.microservices.constants.URLConstants;
 
 import java.net.URI;
@@ -29,51 +31,51 @@ class CategoryServiceController {
 
 	public static final Logger logger = LoggerFactory.getLogger(CategoryServiceController.class);
 	 
-	@RequestMapping(value = "/category/read")
+	@RequestMapping(value = CategoryConstrants.CATEGORY_READ)
 	@ResponseBody
-	public Category readCategory(@RequestParam String id) {
+	public Category readCategory(@RequestParam Integer id) {
 		System.out.println("Gotzon - Gateway id: " + id);
 
-		Map<String, String> uriVariables = new HashMap<String, String>();
+		Map<String, Integer> uriVariables = new HashMap<String, Integer>();
 		uriVariables.put("id", id);
 
-		ResponseEntity<Category> responseEntity = new RestTemplate().getForEntity(URLConstants.CATEGORY_SERVIVE_GET_CATEGORY,
+		ResponseEntity<Category> responseEntity = new RestTemplate().getForEntity(CategoryConstrants.CATEGORY_SERVICE_GET_CATEGORY,
 				Category.class, uriVariables);
 		return responseEntity.getBody();
 	}
 	
-	@RequestMapping(value = "/category/readAll")
+	@RequestMapping(value = CategoryConstrants.CATEGORY_READ_ALL)
 	@ResponseBody
 	public List<Category> readCategories() {
-		ResponseEntity<List<Category>> response = new RestTemplate().exchange("http://192.168.1.117:8093/category/readAllCategories",
+		ResponseEntity<List<Category>> response = new RestTemplate().exchange(CategoryConstrants.DBB_CONNECTOR_CALL_CATEGORY,
 				HttpMethod.GET, null, new ParameterizedTypeReference<List<Category>>() {
 				});
 
 		return response.getBody();
 	}
 	
-	@RequestMapping(value = "/category/delete")
+	@DeleteMapping(CategoryConstrants.CATEGORY_DELETE)
 	@ResponseBody
-	void delete(@RequestParam String id) {
+	void delete(@RequestParam Integer id) {
 
 		System.out.println("Gotzon - Gateway id: " + id);
 
-		Map<String, String> uriVariables = new HashMap<String, String>();
+		Map<String, Integer> uriVariables = new HashMap<String, Integer>();
 		uriVariables.put("id", id);
 
-		new RestTemplate().delete("http://192.168.1.117:8093/category/deleteItem?id={id}", uriVariables);
+		new RestTemplate().delete(CategoryConstrants.DBB_CONNECTOR_DELETE_CATEGORY, uriVariables);
 
 	}
 	
 
 	
-	@PostMapping(path = "/category/create", consumes = MediaType.APPLICATION_JSON_VALUE, produces = "application/json")
+	@PostMapping(path = CategoryConstrants.CATEGORY_CREATE, consumes = MediaType.APPLICATION_JSON_VALUE, produces = "application/json")
 	@ResponseBody
 	Category create(@RequestBody Category category) throws URISyntaxException {
 
 		System.out.println("XAVI - driver: " + category);
 		
-		String baseUrl = "http://192.168.1.117:8093/category/createItem";
+		String baseUrl = CategoryConstrants.DBB_CONNECTOR_CREATE_CATEGORY;
 		URI uri = new URI(baseUrl);
 
 		ResponseEntity<Category> result = new RestTemplate().postForEntity(uri, category, Category.class);

@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
 
 import com.certiorem.microservices.ModelDataService.Team;
-import com.certiorem.microservices.constants.URLConstants;
+import com.certiorem.microservices.constants.TeamConstrants;
 
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -29,51 +29,51 @@ class TeamServiceController {
 
 	public static final Logger logger = LoggerFactory.getLogger(TeamServiceController.class);
 	 
-	@RequestMapping(value = "/team/read")
+	@RequestMapping(value = TeamConstrants.TEAM_READ)
 	@ResponseBody
-	public Team readTeam(@RequestParam String name) {
-		System.out.println("Gotzon - Gateway id: " + name);
+	public Team readTeam(@RequestParam Integer id) {
+		System.out.println("Gotzon - Gateway id: " + id);
 
-		Map<String, String> uriVariables = new HashMap<String, String>();
-		uriVariables.put("name", name);
+		Map<String, Integer> uriVariables = new HashMap<String, Integer>();
+		uriVariables.put("id", id);
 
-		ResponseEntity<Team> responseEntity = new RestTemplate().getForEntity(URLConstants.TEAM_SERVIVE_GET_TEAM,
+		ResponseEntity<Team> responseEntity = new RestTemplate().getForEntity(TeamConstrants.TEAM_SERVICE_GET_TEAM,
 				Team.class, uriVariables);
 		return responseEntity.getBody();
 	}
 	
-	@RequestMapping(value = "/team/readTeams")
+	@RequestMapping(value = TeamConstrants.TEAM_READ_ALL)
 	@ResponseBody
 	public List<Team> readTeams() {
-		ResponseEntity<List<Team>> response = new RestTemplate().exchange("http://192.168.1.117:8093/team/readAllTeams",
+		ResponseEntity<List<Team>> response = new RestTemplate().exchange(TeamConstrants.DBB_CONNECTOR_CALL_TEAM,
 				HttpMethod.GET, null, new ParameterizedTypeReference<List<Team>>() {
 				});
 
 		return response.getBody();
 	}
 	
-	@RequestMapping(value = "/team/deleteTeam")
+	@RequestMapping(value = TeamConstrants.TEAM_DELETE)
 	@ResponseBody
-	void delete(@RequestParam String id) {
+	void delete(@RequestParam Integer id) {
 
 		System.out.println("Gotzon - Gateway id: " + id);
 
-		Map<String, String> uriVariables = new HashMap<String, String>();
+		Map<String, Integer> uriVariables = new HashMap<String, Integer>();
 		uriVariables.put("id", id);
 
-		new RestTemplate().delete("http://192.168.1.117:8093/team/deleteItem?id={id}", uriVariables);
+		new RestTemplate().delete(TeamConstrants.DBB_CONNECTOR_DELETE_TEAM, uriVariables);
 
 	}
 	
 
 	
-	@PostMapping(path = "/team/create", consumes = MediaType.APPLICATION_JSON_VALUE, produces = "application/json")
+	@PostMapping(path = TeamConstrants.TEAM_CREATE, consumes = MediaType.APPLICATION_JSON_VALUE, produces = "application/json")
 	@ResponseBody
 	Team create(@RequestBody Team team) throws URISyntaxException {
 
 		System.out.println("XAVI - team: " + team);
 		
-		String baseUrl = "http://192.168.1.117:8093/team/createItem";
+		String baseUrl = TeamConstrants.DBB_CONNECTOR_CREATE_TEAM;
 		URI uri = new URI(baseUrl);
 
 		ResponseEntity<Team> result = new RestTemplate().postForEntity(uri, team, Team.class);

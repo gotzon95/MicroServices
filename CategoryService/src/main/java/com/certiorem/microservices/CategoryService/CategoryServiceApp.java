@@ -5,10 +5,6 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
 
 
-/**
- * Hello world!
- *
- */
 @SpringBootApplication
 public class CategoryServiceApp extends SpringBootServletInitializer {
 	public static void main(String[] args) {
