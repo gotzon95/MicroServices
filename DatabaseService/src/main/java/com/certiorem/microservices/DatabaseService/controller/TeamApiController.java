@@ -41,6 +41,22 @@ class TeamApiController {
 		deleteTeam(id);
 	}
 
+	@PostMapping(TeamConstrants.TEAM_CLASS_PARAM + TeamConstrants.TEAM_MICROSERVICE_CREATE)
+	Team createTeam(@RequestBody Team team) {
+		return createTm(team);
+	}
+	
+	@PostMapping(TeamConstrants.TEAM_CLASS_PARAM + TeamConstrants.TEAM_MICROSERVICE_UPDATE)
+	Team updateTeam(@RequestBody Team team) {
+		return createTeam(team);
+	}
+	
+	private void deleteTeam(@PathVariable Integer id) {
+		teamService.delete(id);
+		
+		System.out.println("Deleted");
+	}
+	
 	private Team getTeamInfo(Integer id) {
 		System.out.println(id);
 		Team team = teamService.findById(id);
@@ -51,21 +67,5 @@ class TeamApiController {
 	private Team createTm(Team team) {
 		System.out.println("JON - createTeam, team: " + team);
 		return teamService.save(team);
-	}
-
-	@PostMapping(TeamConstrants.TEAM_CLASS_PARAM + TeamConstrants.TEAM_MICROSERVICE_CREATE)
-	Team createTeam(@RequestBody Team team) {
-		return createTm(team);
-	}
-	
-	private void deleteTeam(@PathVariable Integer id) {
-		teamService.delete(id);
-		
-		System.out.println("Deleted");
-	}
-	
-	@PostMapping(TeamConstrants.TEAM_CLASS_PARAM + TeamConstrants.TEAM_MICROSERVICE_UPDATE)
-	Team updateTeam(@RequestBody Team team) {
-		return createTeam(team);
 	}
 }

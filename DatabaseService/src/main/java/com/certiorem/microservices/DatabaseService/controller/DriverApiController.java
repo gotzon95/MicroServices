@@ -41,17 +41,14 @@ class DriverApiController {
 	void deletedriv(@PathVariable Integer id) {
 		deleteDriver(id);
 	}
-
-	private Driver getDriverInfo(Integer id) {
-		System.out.println(id);
-		Driver driver = driverService.findById(id);
-		System.out.println(driver);
-
-		return driver;
-	}
 	
 	@PostMapping(DriverConstrants.DRIVER_CLASS_PARAM + DriverConstrants.DRIVER_MICROSERVICE_CREATE)
 	Driver createDrvr(@RequestBody Driver driver) {
+		return createDriver(driver);
+	}
+
+	@PostMapping(DriverConstrants.DRIVER_CLASS_PARAM + DriverConstrants.DRIVER_MICROSERVICE_UPDATE)
+	Driver updateDriver(@RequestBody Driver driver) {
 		return createDriver(driver);
 	}
 	
@@ -66,9 +63,12 @@ class DriverApiController {
 		System.out.println("Deleted");
 	}
 	
-	@PostMapping(DriverConstrants.DRIVER_CLASS_PARAM + DriverConstrants.DRIVER_MICROSERVICE_UPDATE)
-	Driver updateDriver(@RequestBody Driver driver) {
-		return createDriver(driver);
+	private Driver getDriverInfo(Integer id) {
+		System.out.println(id);
+		Driver driver = driverService.findById(id);
+		System.out.println(driver);
+
+		return driver;
 	}
 	
 }

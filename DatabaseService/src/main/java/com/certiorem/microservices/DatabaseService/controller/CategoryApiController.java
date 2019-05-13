@@ -36,14 +36,6 @@ class CategoryApiController {
 		return categories;
 	}
 
-	private Category getCategoryInfo(Integer id) {
-		System.out.println(id);
-		Category category = categoryService.findById(id);
-		System.out.println(category);
-		
-		return category;
-	}
-	
 	@DeleteMapping(CategoryConstrants.CATEGORY_CLASS_PARAM + CategoryConstrants.CATEGORY_MICROSERVICE_DELETE)
 	void deleteCat(@RequestParam Integer id) {
 		deleteCategory(id);
@@ -51,6 +43,11 @@ class CategoryApiController {
 	
 	@PostMapping(CategoryConstrants.CATEGORY_CLASS_PARAM + CategoryConstrants.CATEGORY_MICROSERVICE_CREATE)
 	Category createCat(@RequestBody Category category) {
+		return createCategory(category);
+	}
+	
+	@PostMapping(CategoryConstrants.CATEGORY_CLASS_PARAM + CategoryConstrants.CATEGORY_MICROSERVICE_UPDATE)
+	Category updateCategory(@RequestBody Category category) {
 		return createCategory(category);
 	}
 	
@@ -65,9 +62,12 @@ class CategoryApiController {
 		System.out.println("Deleted");
 	}
 	
-	@PostMapping(CategoryConstrants.CATEGORY_CLASS_PARAM + CategoryConstrants.CATEGORY_MICROSERVICE_UPDATE)
-	Category updateCategory(@RequestBody Category category) {
-		return createCategory(category);
+	private Category getCategoryInfo(Integer id) {
+		System.out.println(id);
+		Category category = categoryService.findById(id);
+		System.out.println(category);
+		
+		return category;
 	}
 	
 }
