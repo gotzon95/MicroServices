@@ -7,7 +7,6 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
@@ -17,6 +16,7 @@ public class Team {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
+	@Column(name = "TEAM_ID")
 	private Integer id;
 	
 	@Column(name = "NOMBRE", nullable = false)
@@ -34,12 +34,10 @@ public class Team {
 	@Column(name = "RESPONSABLE", nullable = false)
 	private String responsable;
 	
-	@ManyToMany
-	@JoinColumn(name = "pilotos")
+	@ManyToMany(mappedBy="equipos")
 	private List<Driver> pilotos;
 	
-	@ManyToMany
-	@JoinColumn(name = "categorias")
+	@ManyToMany(mappedBy="equipos")
 	private List<Category> categorias;
 	
 	public Integer getId() {

@@ -26,8 +26,7 @@ class CategoryApiController {
 	
 	@GetMapping(CategoryConstrants.CATEGORY_CLASS_PARAM)
 	Category showCategory(@RequestParam Integer id) {
-
-		return getCategoryInfo(id);
+		return categoryService.findById(id);
 	}
 	
 	@RequestMapping(CategoryConstrants.CATEGORY_CLASS_PARAM + CategoryConstrants.CATEGORY_MICROSERVICE_READ)
@@ -38,36 +37,17 @@ class CategoryApiController {
 
 	@DeleteMapping(CategoryConstrants.CATEGORY_CLASS_PARAM + CategoryConstrants.CATEGORY_MICROSERVICE_DELETE)
 	void deleteCat(@RequestParam Integer id) {
-		deleteCategory(id);
+		categoryService.delete(id);
 	}
 	
 	@PostMapping(CategoryConstrants.CATEGORY_CLASS_PARAM + CategoryConstrants.CATEGORY_MICROSERVICE_CREATE)
 	Category createCat(@RequestBody Category category) {
-		return createCategory(category);
+		return categoryService.save(category);
 	}
 	
 	@PostMapping(CategoryConstrants.CATEGORY_CLASS_PARAM + CategoryConstrants.CATEGORY_MICROSERVICE_UPDATE)
 	Category updateCategory(@RequestBody Category category) {
-		return createCategory(category);
-	}
-	
-	private Category createCategory(Category category) {
-		System.out.println("JON - createCategory, category: " + category);
 		return categoryService.save(category);
 	}
-	
-	private void deleteCategory(Integer id) {
-		categoryService.delete(id);
-		
-		System.out.println("Deleted");
-	}
-	
-	private Category getCategoryInfo(Integer id) {
-		System.out.println(id);
-		Category category = categoryService.findById(id);
-		System.out.println(category);
-		
-		return category;
-	}
-	
+
 }
