@@ -8,6 +8,4 @@ import com.certiorem.microservices.ModelDataService.Team;
 @Repository
 public interface TeamRepository extends JpaRepository<Team, Integer> {
 
-    Team findByNombre(String name);
-
 }

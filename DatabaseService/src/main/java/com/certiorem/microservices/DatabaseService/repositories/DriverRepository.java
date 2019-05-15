@@ -8,6 +8,5 @@ import com.certiorem.microservices.ModelDataService.Driver;
 @Repository
 public interface DriverRepository extends JpaRepository<Driver, Integer> {
 
-	 Driver findByNombre(String name);
 
 }

@@ -18,10 +18,6 @@ public class CategoryServiceImpl implements CategoryService {
 	@Autowired
 	private CategoryRepository categoryRepository;
 	
-	public Category findByName(String name) {
-		return categoryRepository.findByNombre(name);
-	}
-	
 	public List<Category> findAllCategories() {
 		return categoryRepository.findAll();
 	}

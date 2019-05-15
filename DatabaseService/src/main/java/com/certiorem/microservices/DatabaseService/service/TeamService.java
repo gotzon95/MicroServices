@@ -5,8 +5,6 @@ import com.certiorem.microservices.ModelDataService.Team;
 
 public interface TeamService {
 	
-	Team findByName(String number);
-	
 	List<Team> findAllTeams();
 	
 	Team findById(Integer id);

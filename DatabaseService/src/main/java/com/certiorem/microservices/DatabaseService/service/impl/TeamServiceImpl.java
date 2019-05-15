@@ -17,10 +17,6 @@ public class TeamServiceImpl implements TeamService {
 
 	@Autowired
 	private TeamRepository teamRepository;
-	
-	public Team findByName(String name) {
-		return teamRepository.findByNombre(name);
-	}
 
 	public List<Team> findAllTeams() {
 		return teamRepository.findAll();

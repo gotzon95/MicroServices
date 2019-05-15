@@ -21,7 +21,7 @@ public class CategoryServiceImpl implements CategoryService {
 
 	@Override
 	public Category create(Category category) throws URISyntaxException {
-		System.out.println("XAVI - category: " + category);
+		System.out.println("JON - category: " + category);
 
 		String baseUrl = CategoryConstrants.CATEGORY_SERVICE_CONTROLLER_HOST + CategoryConstrants.CATEGORY_CREATE;
 		URI uri = new URI(baseUrl);

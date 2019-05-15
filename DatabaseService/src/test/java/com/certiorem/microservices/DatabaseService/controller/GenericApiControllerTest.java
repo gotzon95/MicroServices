@@ -21,7 +21,7 @@ import com.certiorem.microservices.ModelDataService.Team;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
-public class CategoryApiControllerTest {
+public class GenericApiControllerTest {
 
 	@Autowired
 	private CategoryApiController categoryController;
@@ -84,7 +84,18 @@ public class CategoryApiControllerTest {
 	public void testShowCategory() {
 		Category category = categoryController.showCategory(categorySaved.getId());
 		Category category2 = categoryController.updateCategory(category);
+		List<Category> categories = categoryController.showAllCategories();
+		
 		assertEquals(category, categorySaved);
 		assertEquals(category, category2);
+		
+		Driver driver = driverController.showDriver(driverSaved.getId());
+		Driver driver2 = driverController.updateDriver(driverSaved);
+		List<Driver> drivers = driverController.showAllDrivers();
+		
+		Team team = teamController.showTeam(teamSaved.getId());
+		Team team2 = teamController.updateTeam(teamSaved);
+		List<Team> teams = teamController.showAllTeams();
+
 	}
 }

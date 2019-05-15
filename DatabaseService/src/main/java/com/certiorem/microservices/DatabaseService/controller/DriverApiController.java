@@ -28,7 +28,7 @@ class DriverApiController {
 	@GetMapping(DriverConstrants.DRIVER_CLASS_PARAM)
 	Driver showDriver(@RequestParam Integer id) {
 
-		return getDriverInfo(id);
+		return driverService.findById(id);
 	}
 	
 	@RequestMapping(DriverConstrants.DRIVER_CLASS_PARAM + DriverConstrants.DRIVER_MICROSERVICE_READ)
@@ -53,22 +53,11 @@ class DriverApiController {
 	}
 	
 	private Driver createDriver(Driver driver) {
-		System.out.println("JON - createDriver, driver: " + driver);
 		return driverService.save(driver);
 	}
 	
 	private void deleteDriver(@PathVariable Integer id) {
 		driverService.delete(id);
-		
-		System.out.println("Deleted");
-	}
-	
-	private Driver getDriverInfo(Integer id) {
-		System.out.println(id);
-		Driver driver = driverService.findById(id);
-		System.out.println(driver);
-
-		return driver;
 	}
 	
 }

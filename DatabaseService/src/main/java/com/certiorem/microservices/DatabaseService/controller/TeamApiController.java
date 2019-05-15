@@ -2,6 +2,9 @@ package com.certiorem.microservices.DatabaseService.controller;
 
 import java.util.List;
 
+import javax.swing.text.html.FormSubmitEvent.MethodType;
+import javax.validation.metadata.ValidateUnwrappedValue;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,10 +33,9 @@ class TeamApiController {
 		return getTeamInfo(id);
 	}
 	
-	@RequestMapping(TeamConstrants.TEAM_CLASS_PARAM + TeamConstrants.TEAM_MICROSERVICE_READ)
-	List<Team> showAllTeams() {
-		List<Team> teams = teamService.findAllTeams();
-		return teams;
+	@GetMapping(TeamConstrants.TEAM_CLASS_PARAM + TeamConstrants.TEAM_MICROSERVICE_READ)
+	public List<Team> showAllTeams() {
+		return teamService.findAllTeams();
 	}
 
 	@DeleteMapping(TeamConstrants.TEAM_CLASS_PARAM + TeamConstrants.TEAM_MICROSERVICE_DELETE)

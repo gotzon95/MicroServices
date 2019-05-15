@@ -4,8 +4,6 @@ import java.util.List;
 import com.certiorem.microservices.ModelDataService.Driver;
 
 public interface DriverService {
-	
-	Driver findByName(String name);
 
 	List<Driver> findAllDrivers();
 	
