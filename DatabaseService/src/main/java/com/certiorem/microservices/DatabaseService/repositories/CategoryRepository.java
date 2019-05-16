@@ -8,8 +8,5 @@ import com.certiorem.microservices.ModelDataService.Category;
 @Repository
 public interface CategoryRepository extends JpaRepository<Category, Integer> {
 
-	Category findByNombre(String name);
-
-	void deleteById(Long id);
 
 }

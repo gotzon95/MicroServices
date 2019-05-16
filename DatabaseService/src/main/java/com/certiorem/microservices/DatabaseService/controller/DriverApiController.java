@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import com.certiorem.microservices.DatabaseService.service.DriverService;
 import com.certiorem.microservices.ModelDataService.Driver;
+import com.certiorem.microservices.constants.DriverConstrants;
 
 @RestController
 class DriverApiController {
@@ -24,50 +25,39 @@ class DriverApiController {
 	@Autowired
 	private DriverService driverService;
 	
-	@GetMapping("/driver")
-	Driver showDriver(@RequestParam String name) {
+	@GetMapping(DriverConstrants.DRIVER_CLASS_PARAM)
+	Driver showDriver(@RequestParam Integer id) {
 
-		return getDriverInfo(name);
+		return driverService.findById(id);
 	}
 	
-	@RequestMapping("/driver/readAllDrivers")
+	@RequestMapping(DriverConstrants.DRIVER_CLASS_PARAM + DriverConstrants.DRIVER_MICROSERVICE_READ)
 	List<Driver> showAllDrivers() {
 		List<Driver> drivers = driverService.findAllDrivers();
 		return drivers;
 	}
 	
-	@DeleteMapping("/driver/deleteItem")
+	@DeleteMapping(DriverConstrants.DRIVER_CLASS_PARAM + DriverConstrants.DRIVER_MICROSERVICE_DELETE)
 	void deletedriv(@PathVariable Integer id) {
 		deleteDriver(id);
 	}
-
-	private Driver getDriverInfo(String name) {
-		System.out.println(name);
-		Driver driver = driverService.findByName(name);
-		System.out.println(driver);
-
-		return driver;
-	}
 	
-	@PostMapping("/driver/createItem")
+	@PostMapping(DriverConstrants.DRIVER_CLASS_PARAM + DriverConstrants.DRIVER_MICROSERVICE_CREATE)
 	Driver createDrvr(@RequestBody Driver driver) {
+		return createDriver(driver);
+	}
+
+	@PostMapping(DriverConstrants.DRIVER_CLASS_PARAM + DriverConstrants.DRIVER_MICROSERVICE_UPDATE)
+	Driver updateDriver(@RequestBody Driver driver) {
 		return createDriver(driver);
 	}
 	
 	private Driver createDriver(Driver driver) {
-		System.out.println("JON - createDriver, driver: " + driver);
 		return driverService.save(driver);
 	}
 	
 	private void deleteDriver(@PathVariable Integer id) {
 		driverService.delete(id);
-		
-		System.out.println("Deleted");
-	}
-	
-	@PostMapping("/driver/updateItem")
-	Driver updateDriver(@RequestBody Driver driver) {
-		return createDriver(driver);
 	}
 	
 }

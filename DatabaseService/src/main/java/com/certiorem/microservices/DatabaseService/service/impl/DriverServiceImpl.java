@@ -18,10 +18,6 @@ public class DriverServiceImpl implements DriverService {
 	@Autowired
 	private DriverRepository driverRepository;
 	
-	public Driver findByName(String name) {
-		return driverRepository.findByNombre(name);
-	}
-	
 	public List<Driver> findAllDrivers() {
 		return driverRepository.findAll();
 	}

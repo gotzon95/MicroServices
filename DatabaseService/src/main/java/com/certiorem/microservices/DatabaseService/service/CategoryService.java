@@ -5,8 +5,6 @@ import com.certiorem.microservices.ModelDataService.Category;
 
 public interface CategoryService {
 	
-	Category findByName(String name);
-	
 	List<Category> findAllCategories();
 	
 	Category findById(Integer id);
