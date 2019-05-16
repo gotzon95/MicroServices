@@ -22,7 +22,7 @@ public class CategoryServiceImpl implements CategoryService {
 
     @Autowired
     private RestTemplate restTemplate;
-    
+
 	@Override
 	public Category create(Category category) throws URISyntaxException {
 		System.out.println("JON - category: " + category);

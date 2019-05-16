@@ -21,7 +21,7 @@ public class TeamServiceImpl implements TeamService{
 	
     @Autowired
     private RestTemplate restTemplate;
-    
+
 	@Override
 	public Team create(Team team) throws URISyntaxException {
 		String baseUrl = TeamConstrants.TEAM_SERVICE_CONTROLLER_HOST + TeamConstrants.TEAM_CREATE;
