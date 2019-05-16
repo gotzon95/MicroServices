@@ -48,6 +48,4 @@ class TeamServiceController {
 	Team create(@RequestBody Team team) throws URISyntaxException {
 		return teamService.create(team);
 	}
-	
-	
 }

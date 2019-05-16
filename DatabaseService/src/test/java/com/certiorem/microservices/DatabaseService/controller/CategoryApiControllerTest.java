@@ -1,6 +1,7 @@
 package com.certiorem.microservices.DatabaseService.controller;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -13,15 +14,15 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import com.certiorem.microservices.ModelDataService.Category;
 import com.certiorem.microservices.ModelDataService.Driver;
 import com.certiorem.microservices.ModelDataService.Team;
 
-@RunWith(SpringRunner.class)
+@RunWith(SpringJUnit4ClassRunner.class)
 @SpringBootTest
-public class GenericApiControllerTest {
+public class CategoryApiControllerTest {
 
 	@Autowired
 	private CategoryApiController categoryController;
@@ -83,19 +84,36 @@ public class GenericApiControllerTest {
 	@Transactional
 	public void testShowCategory() {
 		Category category = categoryController.showCategory(categorySaved.getId());
-		Category category2 = categoryController.updateCategory(category);
-		List<Category> categories = categoryController.showAllCategories();
-		
 		assertEquals(category, categorySaved);
-		assertEquals(category, category2);
 		
-		Driver driver = driverController.showDriver(driverSaved.getId());
-		Driver driver2 = driverController.updateDriver(driverSaved);
-		List<Driver> drivers = driverController.showAllDrivers();
-		
-		Team team = teamController.showTeam(teamSaved.getId());
-		Team team2 = teamController.updateTeam(teamSaved);
-		List<Team> teams = teamController.showAllTeams();
+//		Driver driver = driverController.showDriver(driverSaved.getId());
+//		Driver driver2 = driverController.updateDriver(driverSaved);
+//		List<Driver> drivers = driverController.showAllDrivers();
+//		
+//		Team team = teamController.showTeam(teamSaved.getId());
+//		Team team2 = teamController.updateTeam(teamSaved);
+//		List<Team> teams = teamController.showAllTeams();
 
+	}
+	
+	@Test
+	@Transactional
+	public void showAllCategories() {
+		List<Category> categories = categoryController.showAllCategories();
+		boolean result = categories.contains(categorySaved);
+		assertTrue(result);
+	}
+	
+	@Test
+	@Transactional
+	public void updateCategory() {
+		String changedName = "Updated";
+		Category categoryReaded = categoryController.showCategory(categorySaved.getId());
+		categoryReaded.setNombre(changedName);
+		
+		categorySaved.setNombre(changedName);
+		
+		Category category = categoryController.updateCategory(categoryReaded);
+		assertEquals(category, categorySaved);
 	}
 }

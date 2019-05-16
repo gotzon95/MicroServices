@@ -2,9 +2,6 @@ package com.certiorem.microservices.DatabaseService.controller;
 
 import java.util.List;
 
-import javax.swing.text.html.FormSubmitEvent.MethodType;
-import javax.validation.metadata.ValidateUnwrappedValue;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,9 +10,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+
 import com.certiorem.microservices.DatabaseService.service.TeamService;
 import com.certiorem.microservices.ModelDataService.Team;
 import com.certiorem.microservices.constants.TeamConstrants;

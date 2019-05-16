@@ -5,6 +5,8 @@ import java.net.URISyntaxException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
@@ -16,13 +18,16 @@ import com.certiorem.microservices.constants.TeamConstrants;
 
 @Service
 public class TeamServiceImpl implements TeamService{
-
+	
+    @Autowired
+    private RestTemplate restTemplate;
+    
 	@Override
 	public Team create(Team team) throws URISyntaxException {
 		String baseUrl = TeamConstrants.TEAM_SERVICE_CONTROLLER_HOST + TeamConstrants.TEAM_CREATE;
 		URI uri = new URI(baseUrl);
 
-		ResponseEntity<Team> result = new RestTemplate().postForEntity(uri, team, Team.class);
+		ResponseEntity<Team> result = restTemplate.postForEntity(uri, team, Team.class);
 
 		return result.getBody();
 	}
@@ -32,7 +37,7 @@ public class TeamServiceImpl implements TeamService{
 		Map<String, Integer> uriVariables = new HashMap<String, Integer>();
 		uriVariables.put("id", teamId);
 		
-		ResponseEntity<Team> responseEntity = new RestTemplate().getForEntity(TeamConstrants.TEAM_SERVICE_CONTROLLER_HOST + TeamConstrants.TEAM_READ + "?id={" + TeamConstrants.TEAM_SEARCH_PARAM + "}",
+		ResponseEntity<Team> responseEntity = restTemplate.getForEntity(TeamConstrants.TEAM_SERVICE_CONTROLLER_HOST + TeamConstrants.TEAM_READ + "?id={" + TeamConstrants.TEAM_SEARCH_PARAM + "}",
 				Team.class, uriVariables);
 
 		return responseEntity.getBody();
@@ -40,7 +45,7 @@ public class TeamServiceImpl implements TeamService{
 
 	@Override
 	public List<Team> readAll() {
-		ResponseEntity<List<Team>> response = new RestTemplate().exchange(TeamConstrants.TEAM_SERVICE_CONTROLLER_HOST + TeamConstrants.TEAM_READ_ALL,
+		ResponseEntity<List<Team>> response = restTemplate.exchange(TeamConstrants.TEAM_SERVICE_CONTROLLER_HOST + TeamConstrants.TEAM_READ_ALL,
 				HttpMethod.GET, null, new ParameterizedTypeReference<List<Team>>() {
 				});
 
@@ -52,7 +57,7 @@ public class TeamServiceImpl implements TeamService{
 		Map<String, Integer> uriVariables = new HashMap<String, Integer>();
 		uriVariables.put("id", teamId);
 		
-		new RestTemplate().delete(TeamConstrants.TEAM_SERVICE_CONTROLLER_HOST + TeamConstrants.TEAM_DELETE + "?id={" + TeamConstrants.TEAM_SEARCH_PARAM + "}", uriVariables);
+		restTemplate.delete(TeamConstrants.TEAM_SERVICE_CONTROLLER_HOST + TeamConstrants.TEAM_DELETE + "?id={" + TeamConstrants.TEAM_SEARCH_PARAM + "}", uriVariables);
 	}
 
 	@Override
@@ -60,7 +65,7 @@ public class TeamServiceImpl implements TeamService{
 		String baseUrl = TeamConstrants.TEAM_SERVICE_CONTROLLER_HOST + TeamConstrants.TEAM_UPDATE;
 		URI uri = new URI(baseUrl);
 
-		ResponseEntity<Team> result = new RestTemplate().postForEntity(uri, team, Team.class);
+		ResponseEntity<Team> result = restTemplate.postForEntity(uri, team, Team.class);
 
 		return result.getBody();
 	}

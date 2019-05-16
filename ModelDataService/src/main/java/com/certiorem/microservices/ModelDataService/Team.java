@@ -122,12 +122,6 @@ public class Team {
 	@Override
 	public String toString() {
 		return "Team [id=" + id + ", nombre=" + nombre + ", fundado=" + fundado + ", victorias=" + victorias
-				+ ", motorizador=" + motorizador + ", responsable=" + responsable + ", pilotos=" + pilotos + ", categorias=" + categorias + "]";
+				+ ", motorizador=" + motorizador + ", responsable=" + responsable + "]";
 	}
-
-
-	
-	
-	
-	
 }

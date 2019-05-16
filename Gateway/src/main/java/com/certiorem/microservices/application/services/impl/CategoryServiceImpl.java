@@ -6,6 +6,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
@@ -19,6 +20,9 @@ import com.certiorem.microservices.constants.CategoryConstrants;
 @Service
 public class CategoryServiceImpl implements CategoryService {
 
+    @Autowired
+    private RestTemplate restTemplate;
+    
 	@Override
 	public Category create(Category category) throws URISyntaxException {
 		System.out.println("JON - category: " + category);
@@ -26,7 +30,7 @@ public class CategoryServiceImpl implements CategoryService {
 		String baseUrl = CategoryConstrants.CATEGORY_SERVICE_CONTROLLER_HOST + CategoryConstrants.CATEGORY_CREATE;
 		URI uri = new URI(baseUrl);
 
-		ResponseEntity<Category> result = new RestTemplate().postForEntity(uri, category, Category.class);
+		ResponseEntity<Category> result = restTemplate.postForEntity(uri, category, Category.class);
 
 		return result.getBody();
 	}
@@ -36,8 +40,7 @@ public class CategoryServiceImpl implements CategoryService {
 		Map<String, Integer> uriVariables = new HashMap<String, Integer>();
 		uriVariables.put("id", categoryId);
 
-		ResponseEntity<Category> responseEntity = new RestTemplate()
-				.getForEntity(CategoryConstrants.CATEGORY_SERVICE_CONTROLLER_HOST + CategoryConstrants.CATEGORY_READ
+		ResponseEntity<Category> responseEntity = restTemplate.getForEntity(CategoryConstrants.CATEGORY_SERVICE_CONTROLLER_HOST + CategoryConstrants.CATEGORY_READ
 						+ "?id={" + CategoryConstrants.CATEGORY_SEARCH_PARAM + "}", Category.class, uriVariables);
 
 		return responseEntity.getBody();
@@ -45,7 +48,7 @@ public class CategoryServiceImpl implements CategoryService {
 
 	@Override
 	public List<Category> readAll() {
-		ResponseEntity<List<Category>> response = new RestTemplate().exchange(
+		ResponseEntity<List<Category>> response = restTemplate.exchange(
 				CategoryConstrants.CATEGORY_SERVICE_CONTROLLER_HOST + CategoryConstrants.CATEGORY_READ_ALL,
 				HttpMethod.GET, null, new ParameterizedTypeReference<List<Category>>() {
 				});
@@ -58,7 +61,7 @@ public class CategoryServiceImpl implements CategoryService {
 		Map<String, Integer> uriVariables = new HashMap<String, Integer>();
 		uriVariables.put("id", categoryId);
 
-		new RestTemplate().delete(CategoryConstrants.CATEGORY_SERVICE_CONTROLLER_HOST
+		restTemplate.delete(CategoryConstrants.CATEGORY_SERVICE_CONTROLLER_HOST
 				+ CategoryConstrants.CATEGORY_DELETE + "?id={" + CategoryConstrants.CATEGORY_SEARCH_PARAM + "}",
 				uriVariables);
 	}
@@ -68,7 +71,7 @@ public class CategoryServiceImpl implements CategoryService {
 		String baseUrl = CategoryConstrants.CATEGORY_SERVICE_CONTROLLER_HOST + CategoryConstrants.CATEGORY_UPDATE;
 		URI uri = new URI(baseUrl);
 
-		ResponseEntity<Category> result = new RestTemplate().postForEntity(uri, category, Category.class);
+		ResponseEntity<Category> result = restTemplate.postForEntity(uri, category, Category.class);
 
 		return result.getBody();
 	}

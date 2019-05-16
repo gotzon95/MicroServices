@@ -5,7 +5,6 @@ import java.util.List;
 
 import com.certiorem.microservices.ModelDataService.Team;
 
-
 public interface TeamService {
 
 	public Team readTeam(Integer teamId);

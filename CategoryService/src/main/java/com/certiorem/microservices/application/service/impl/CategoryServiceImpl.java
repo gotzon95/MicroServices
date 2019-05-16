@@ -6,6 +6,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
@@ -19,19 +20,21 @@ import com.certiorem.microservices.constants.CategoryConstrants;
 @Service
 public class CategoryServiceImpl implements CategoryService {
 	
+    @Autowired
+    private RestTemplate restTemplate;
+    
 	@Override
 	public Category readCategory(Integer categoryId) {
 		Map<String, Integer> uriVariables = new HashMap<String, Integer>();
 		uriVariables.put("id", categoryId);
 
-		ResponseEntity<Category> responseEntity = new RestTemplate()
-				.getForEntity(CategoryConstrants.CATEGORY_SERVICE_GET_CATEGORY, Category.class, uriVariables);
+		ResponseEntity<Category> responseEntity = restTemplate.getForEntity(CategoryConstrants.CATEGORY_SERVICE_GET_CATEGORY, Category.class, uriVariables);
 		return responseEntity.getBody();
 	}
 
 	@Override
 	public List<Category> readCategories() {
-		ResponseEntity<List<Category>> response = new RestTemplate().exchange(
+		ResponseEntity<List<Category>> response = restTemplate.exchange(
 				CategoryConstrants.DBB_CONNECTOR_CALL_CATEGORY, HttpMethod.GET, null,
 				new ParameterizedTypeReference<List<Category>>() {
 				});
@@ -44,7 +47,7 @@ public class CategoryServiceImpl implements CategoryService {
 		Map<String, Integer> uriVariables = new HashMap<String, Integer>();
 		uriVariables.put("id", categoryId);
 
-		new RestTemplate().delete(CategoryConstrants.DBB_CONNECTOR_DELETE_CATEGORY, uriVariables);
+		restTemplate.delete(CategoryConstrants.DBB_CONNECTOR_DELETE_CATEGORY, uriVariables);
 	}
 
 	@Override
@@ -52,7 +55,7 @@ public class CategoryServiceImpl implements CategoryService {
 		String baseUrl = CategoryConstrants.DBB_CONNECTOR_CREATE_CATEGORY;
 		URI uri = new URI(baseUrl);
 
-		ResponseEntity<Category> result = new RestTemplate().postForEntity(uri, category, Category.class);
+		ResponseEntity<Category> result = restTemplate.postForEntity(uri, category, Category.class);
 
 		return result.getBody();
 	}
