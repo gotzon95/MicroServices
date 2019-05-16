@@ -5,6 +5,8 @@ import java.net.URISyntaxException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
@@ -17,12 +19,15 @@ import com.certiorem.microservices.constants.DriverConstrants;
 @Service
 public class DriverServiceImpl implements DriverService{
 
+	@Autowired
+	private RestTemplate restTemplate;
+	
 	@Override
 	public Driver create(Driver driver) throws URISyntaxException {
 		String baseUrl = DriverConstrants.DRIVER_SERVICE_CONTROLLER_HOST + DriverConstrants.DRIVER_CREATE;
 		URI uri = new URI(baseUrl);
 
-		ResponseEntity<Driver> result = new RestTemplate().postForEntity(uri, driver, Driver.class);
+		ResponseEntity<Driver> result = restTemplate.postForEntity(uri, driver, Driver.class);
 
 		return result.getBody();
 	}
@@ -32,7 +37,7 @@ public class DriverServiceImpl implements DriverService{
 		Map<String, Integer> uriVariables = new HashMap<String, Integer>();
 		uriVariables.put("id", driverId);
 
-		ResponseEntity<Driver> responseEntity = new RestTemplate().getForEntity(DriverConstrants.DRIVER_SERVICE_CONTROLLER_HOST + DriverConstrants.DRIVER_READ + "?id={" + DriverConstrants.DRIVER_SEARCH_PARAM + "}",
+		ResponseEntity<Driver> responseEntity = restTemplate.getForEntity(DriverConstrants.DRIVER_SERVICE_CONTROLLER_HOST + DriverConstrants.DRIVER_READ + "?id={" + DriverConstrants.DRIVER_SEARCH_PARAM + "}",
 				Driver.class, uriVariables);
 		
 
@@ -41,7 +46,7 @@ public class DriverServiceImpl implements DriverService{
 
 	@Override
 	public List<Driver> readAll() {
-		ResponseEntity<List<Driver>> response = new RestTemplate().exchange(DriverConstrants.DRIVER_SERVICE_CONTROLLER_HOST + DriverConstrants.DRIVER_READ_ALL,
+		ResponseEntity<List<Driver>> response = restTemplate.exchange(DriverConstrants.DRIVER_SERVICE_CONTROLLER_HOST + DriverConstrants.DRIVER_READ_ALL,
 				HttpMethod.GET, null, new ParameterizedTypeReference<List<Driver>>() {
 				});
 
@@ -53,7 +58,7 @@ public class DriverServiceImpl implements DriverService{
 		Map<String, Integer> uriVariables = new HashMap<String, Integer>();
 		uriVariables.put("id", driverId);
 
-		new RestTemplate().delete(DriverConstrants.DRIVER_SERVICE_CONTROLLER_HOST + DriverConstrants.DRIVER_DELETE + "?id={" + DriverConstrants.DRIVER_SEARCH_PARAM + "}", uriVariables);
+		restTemplate.delete(DriverConstrants.DRIVER_SERVICE_CONTROLLER_HOST + DriverConstrants.DRIVER_DELETE + "?id={" + DriverConstrants.DRIVER_SEARCH_PARAM + "}", uriVariables);
 	}
 
 	@Override
@@ -61,7 +66,7 @@ public class DriverServiceImpl implements DriverService{
 		String baseUrl = DriverConstrants.DRIVER_SERVICE_CONTROLLER_HOST + DriverConstrants.DRIVER_UPDATE;
 		URI uri = new URI(baseUrl);
 
-		ResponseEntity<Driver> result = new RestTemplate().postForEntity(uri, driver, Driver.class);
+		ResponseEntity<Driver> result = restTemplate.postForEntity(uri, driver, Driver.class);
 
 		return result.getBody();
 	}
