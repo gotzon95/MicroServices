@@ -8,6 +8,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -29,20 +30,11 @@ public class Category {
 
 	@ManyToMany
 	private List<Team> equipos;
-
-	public Category() {
-
-	}
-
-	public Category(Integer id, String nombre, Integer fundado, String tipo, List<Team> equipos) {
-		super();
-		this.id = id;
-		this.nombre = nombre;
-		this.fundado = fundado;
-		this.tipo = tipo;
-		this.equipos = equipos;
-	}
-
+	
+	@OneToOne(mappedBy = "category")
+    private Competition competition;
+	
+	
 	public Integer getId() {
 		return id;
 	}
@@ -81,6 +73,14 @@ public class Category {
 
 	public void setEquipos(List<Team> equipos) {
 		this.equipos = equipos;
+	}
+
+	public Competition getCompetition() {
+		return competition;
+	}
+
+	public void setCompetition(Competition competition) {
+		this.competition = competition;
 	}
 
 	@Override
