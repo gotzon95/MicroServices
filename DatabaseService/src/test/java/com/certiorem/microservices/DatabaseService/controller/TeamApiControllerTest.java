@@ -41,7 +41,7 @@ public class TeamApiControllerTest {
 		Team team = new Team();
 		team.setNombre("Repsol Honda");
 		team.setFundado(1994);
-		team.setMotorizador("Honda");
+		//team.setMotorizador("Honda");
 		team.setResponsable("Nakamoto");
 		team.setVictorias(998);
 		

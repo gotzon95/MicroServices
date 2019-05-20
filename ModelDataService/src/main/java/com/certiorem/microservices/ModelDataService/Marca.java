@@ -2,23 +2,22 @@ package com.certiorem.microservices.ModelDataService;
 
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToMany;
-import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "EQUIPO")
-public class Team {
+@Table(name = "MARCA")
+public class Marca {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	@Column(name = "TEAM_ID")
+	@Column(name = "MARCA_ID")
 	private Integer id;
 	
 	@Column(name = "NOMBRE", nullable = false)
@@ -30,101 +29,63 @@ public class Team {
 	@Column(name = "VICTORIAS", nullable = false)
 	private Integer victorias;
 	
-	@ManyToOne
-	@JoinColumn
-	private Marca motorizador;
-	
 	@Column(name = "RESPONSABLE", nullable = false)
 	private String responsable;
 	
-	@ManyToMany(mappedBy="equipos")
-	private List<Driver> pilotos;
-	
-	@ManyToMany(mappedBy="equipos")
-	private List<Category> categorias;
-	
+	@OneToMany(mappedBy="motorizador", cascade = CascadeType.ALL)
+	private List<Team> equipos;
+
 	public Integer getId() {
 		return id;
 	}
-
 
 	public void setId(Integer id) {
 		this.id = id;
 	}
 
-
 	public String getNombre() {
 		return nombre;
 	}
-
 
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
 	}
 
-
 	public Integer getFundado() {
 		return fundado;
 	}
-
 
 	public void setFundado(Integer fundado) {
 		this.fundado = fundado;
 	}
 
-
 	public Integer getVictorias() {
 		return victorias;
 	}
-
 
 	public void setVictorias(Integer victorias) {
 		this.victorias = victorias;
 	}
 
-
-	public Marca getMotorizador() {
-		return motorizador;
-	}
-
-
-	public void setMotorizador(Marca motorizador) {
-		this.motorizador = motorizador;
-	}
-
-
 	public String getResponsable() {
 		return responsable;
 	}
-
 
 	public void setResponsable(String responsable) {
 		this.responsable = responsable;
 	}
 
-	public List<Driver> getPilotos() {
-		return pilotos;
+	public List<Team> getEquipos() {
+		return equipos;
 	}
 
-
-	public void setPilotos(List<Driver> pilotos) {
-		this.pilotos = pilotos;
+	public void setEquipos(List<Team> equipos) {
+		this.equipos = equipos;
 	}
-
-
-	public List<Category> getCategorias() {
-		return categorias;
-	}
-
-
-	public void setCategorias(List<Category> categorias) {
-		this.categorias = categorias;
-	}
-
 
 	@Override
 	public String toString() {
-		return "Team [id=" + id + ", nombre=" + nombre + ", fundado=" + fundado + ", victorias=" + victorias
-				+ ", motorizador=" + motorizador + ", responsable=" + responsable + "]";
+		return "Marca [id=" + id + ", nombre=" + nombre + ", fundado=" + fundado + ", victorias=" + victorias
+				+ ", responsable=" + responsable + ", equipos=" + equipos + "]";
 	}
 }
