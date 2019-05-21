@@ -27,7 +27,10 @@ public class Category {
 	private Integer fundado;
 
 	@Column(name = "TIPO", nullable = false)
-	private String tipo;
+	private CategoryType tipo;
+	
+	@Column(name = "MAX_TEAMS", nullable = false)
+	private Integer maxTeams;
 
 	@ManyToMany
 	private List<Team> equipos;
@@ -60,11 +63,11 @@ public class Category {
 		this.fundado = fundado;
 	}
 
-	public String getTipo() {
+	public CategoryType getTipo() {
 		return tipo;
 	}
 
-	public void setTipo(String tipo) {
+	public void setTipo(CategoryType tipo) {
 		this.tipo = tipo;
 	}
 
