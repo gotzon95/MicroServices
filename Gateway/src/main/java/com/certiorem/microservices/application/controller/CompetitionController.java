@@ -27,4 +27,5 @@ class CompetitionController {
 		return competitionService.create(competition);
 	}
 	
+	
 }
