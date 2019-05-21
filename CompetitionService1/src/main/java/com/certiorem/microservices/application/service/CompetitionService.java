@@ -14,5 +14,7 @@ public interface CompetitionService {
 	
 	public void delete(Integer competitionId);
 	
+	
+	
 	public Competition create(Competition competition) throws URISyntaxException;
 }
