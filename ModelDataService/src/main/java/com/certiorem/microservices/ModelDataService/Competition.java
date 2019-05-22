@@ -24,6 +24,9 @@ public class Competition {
 	@Column(name = "RESPONSABLE", nullable = false)
 	private String responsable;
 	
+	@Column(name="AÑO", nullable = false)
+	private Integer año;
+	
 	@OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "category_id", referencedColumnName = "id")
     private Category category;
@@ -60,17 +63,18 @@ public class Competition {
 		this.category = category;
 	}
 
+	public Integer getAño() {
+		return año;
+	}
+
+	public void setAño(Integer año) {
+		this.año = año;
+	}
+
 	@Override
 	public String toString() {
-		return "Competition [id=" + id + ", nombre=" + nombre + ", responsable=" + responsable + ", category="
-				+ category + "]";
+		return "Competition [id=" + id + ", nombre=" + nombre + ", responsable=" + responsable + ", año=" + año
+				+ ", category=" + category + "]";
 	}
-	
-	
-	
-	
-	
-	
-	
-	
+
 }
