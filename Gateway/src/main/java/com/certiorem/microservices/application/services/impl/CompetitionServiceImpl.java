@@ -26,6 +26,16 @@ public class CompetitionServiceImpl implements CompetitionService{
 		return result.getBody();
 	}
 
+	@Override
+	public Competition newCompetition() throws URISyntaxException {
+		String baseUrl = CompetitionConstrants.COMPETITION_SERVICE_CONTROLLER_HOST + CompetitionConstrants.COMPETITION_CREATE_NEW;
+		URI uri = new URI(baseUrl);
+		
+		ResponseEntity<Competition> result = restTemplate.getForEntity(uri, Competition.class);
+		
+		return result.getBody();
+	}
+
 	
     
 	

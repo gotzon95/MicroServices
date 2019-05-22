@@ -11,7 +11,11 @@ public class CompetitionConstrants {
 	
 	public static final String COMPETITION_CREATE = COMPETITION_CLASS_PARAM + "/create";
 	
+	public static final String COMPETITION_CREATE_NEW = COMPETITION_CLASS_PARAM + "/create-new";
+	
 	public static final String COMPETITION_MICROSERVICE_CREATE = "/createItem";
+	
+	public static final String COMPETITION_MICROSERVICE_CREATE_NEW = "/createCompetition";
 
 	
 }

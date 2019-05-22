@@ -16,7 +16,6 @@ public class CompetitionServiceImpl implements CompetitionService {
 	private CompetitionRepository competitionRepository;
 
 	public Competition save(Competition competition) {
-		
 		return competitionRepository.save(competition);
 	}
 

@@ -13,6 +13,8 @@ import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 @Table(name = "CATEGORIA")
 public class Category {
@@ -33,9 +35,11 @@ public class Category {
 	@Column(name = "MAX_TEAMS", nullable = false)
 	private Integer maxTeams;
 
-	@OneToMany(mappedBy="categoria")
+	@JsonIgnore
+	@OneToMany(mappedBy="categoria", cascade=CascadeType.ALL)
 	private List<Team> equipos;
 	
+	@JsonIgnore
 	@OneToOne(mappedBy = "category", cascade=CascadeType.ALL)
     private Competition competition;
 	
@@ -86,6 +90,14 @@ public class Category {
 
 	public void setCompetition(Competition competition) {
 		this.competition = competition;
+	}
+
+	public Integer getMaxTeams() {
+		return maxTeams;
+	}
+
+	public void setMaxTeams(Integer maxTeams) {
+		this.maxTeams = maxTeams;
 	}
 
 	@Override

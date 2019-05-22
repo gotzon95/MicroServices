@@ -39,7 +39,7 @@ public class Team {
 	@Column(name = "RESPONSABLE", nullable = false)
 	private String responsable;
 
-	@ManyToMany(mappedBy = "equipos")
+	@ManyToMany(mappedBy = "equipos", cascade = CascadeType.ALL)
 	private List<Driver> pilotos;
 
 	@ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)

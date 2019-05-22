@@ -2,6 +2,7 @@ package com.certiorem.microservices.ModelDataService;
 
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -28,9 +29,9 @@ public class Driver {
 	private Integer victorias;
 	
 	@Column(name = "POLES", nullable = false)
-	private Integer pole;
+	private Integer poles;
 	
-	@ManyToMany
+	@ManyToMany(cascade = CascadeType.ALL)
 	private List<Team> equipos;
 
 	public Integer getId() {
@@ -65,12 +66,12 @@ public class Driver {
 		this.victorias = victorias;
 	}
 
-	public Integer getPole() {
-		return pole;
+	public Integer getPoles() {
+		return poles;
 	}
 
-	public void setPole(Integer pole) {
-		this.pole = pole;
+	public void setPole(Integer poles) {
+		this.poles = poles;
 	}
 
 	public List<Team> getEquipos() {
@@ -84,6 +85,6 @@ public class Driver {
 	@Override
 	public String toString() {
 		return "Driver [id=" + id + ", nombre=" + nombre + ", edad=" + edad + ", victorias=" + victorias + ", pole="
-				+ pole + ", campeonato=" + equipos + "]";
+				+ poles + ", campeonato=" + equipos + "]";
 	}
 }

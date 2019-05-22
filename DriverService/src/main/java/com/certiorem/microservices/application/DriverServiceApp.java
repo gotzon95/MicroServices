@@ -6,11 +6,6 @@ import org.springframework.boot.web.servlet.support.SpringBootServletInitializer
 import org.springframework.context.annotation.Bean;
 import org.springframework.web.client.RestTemplate;
 
-
-/**
- * Hello world!
- *
- */
 @SpringBootApplication
 public class DriverServiceApp extends SpringBootServletInitializer {
 	public static void main(String[] args) {
