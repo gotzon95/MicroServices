@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 import com.certiorem.microservices.DatabaseService.service.CompetitionService;
 import com.certiorem.microservices.ModelDataService.Competition;
-import com.certiorem.microservices.constants.CategoryConstrants;
+import com.certiorem.microservices.constants.CompetitionConstrants;
 
 @RestController
 class CompetitionApiController {
@@ -18,8 +18,9 @@ class CompetitionApiController {
 	@Autowired
 	private CompetitionService competitionService;
 
-	@PostMapping(CategoryConstrants.CATEGORY_CLASS_PARAM + CategoryConstrants.CATEGORY_MICROSERVICE_CREATE)
+	@PostMapping(CompetitionConstrants.COMPETITION_CLASS_PARAM + CompetitionConstrants.COMPETITION_MICROSERVICE_CREATE)
 	Competition createComp(@RequestBody Competition competition) {
+		System.out.println("Competition" + competition);
 		return competitionService.save(competition);
 	}
 	

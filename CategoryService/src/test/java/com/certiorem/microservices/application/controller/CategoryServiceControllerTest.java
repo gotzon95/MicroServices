@@ -22,6 +22,7 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
 import com.certiorem.microservices.ModelDataService.Category;
+import com.certiorem.microservices.ModelDataService.CategoryType;
 import com.certiorem.microservices.application.service.CategoryService;
 import com.certiorem.microservices.constants.CategoryConstrants;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -47,7 +48,7 @@ public class CategoryServiceControllerTest {
 		category.setId(2);
 		category.setNombre("MotoGP");
 		category.setFundado(1998);
-		category.setTipo("Moto");
+		category.setTipo(CategoryType.MOTOGP);
 		category.setEquipos(null);
 	}
 

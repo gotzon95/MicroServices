@@ -23,6 +23,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.client.RestTemplate;
 
 import com.certiorem.microservices.ModelDataService.Category;
+import com.certiorem.microservices.ModelDataService.CategoryType;
 import com.certiorem.microservices.application.service.CategoryService;
 import com.certiorem.microservices.constants.CategoryConstrants;
 
@@ -43,7 +44,7 @@ public class CategoryServiceImplTest {
 		category.setId(2);
 		category.setNombre("MotoGP");
 		category.setFundado(1998);
-		category.setTipo("Moto");
+		category.setTipo(CategoryType.MOTOGP);
 		category.setEquipos(null);
 
 	}

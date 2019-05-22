@@ -24,6 +24,7 @@ class CompetitionController {
 	
 	@PostMapping(path = CompetitionConstrants.COMPETITION_CREATE, consumes = MediaType.APPLICATION_JSON_VALUE, produces = "application/json")
 	Competition create(@RequestBody Competition competition) throws URISyntaxException {
+		System.out.println("Competition" + competition);
 		return competitionService.create(competition);
 	}
 	

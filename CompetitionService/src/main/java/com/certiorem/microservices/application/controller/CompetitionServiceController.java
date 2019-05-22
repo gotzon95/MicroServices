@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.certiorem.microservices.ModelDataService.Competition;
 import com.certiorem.microservices.application.service.CompetitionService;
+import com.certiorem.microservices.constants.CompetitionConstrants;
 
 @RestController
 class CompetitionServiceController {
@@ -26,27 +27,10 @@ class CompetitionServiceController {
 	@Autowired
 	private CompetitionService competitionService;
 
-	@RequestMapping(value = "/competition/read")
-	@ResponseBody
-	public Competition readCompetition(@RequestParam Integer id) {
-		return competitionService.readCompetition(id);
-	}
-
-	@RequestMapping(value = "/competition/readAll")
-	@ResponseBody
-	public List<Competition> readCategories() {
-		return competitionService.readCompetitions();
-	}
-
-	@DeleteMapping(value = "/competition/delete")
-	@ResponseBody
-	void delete(@RequestParam Integer id) {
-		competitionService.delete(id);
-	}
-
-	@PostMapping(value = "/competition/create", consumes = MediaType.APPLICATION_JSON_VALUE, produces = "application/json")
+	@PostMapping(value = CompetitionConstrants.COMPETITION_CREATE, consumes = MediaType.APPLICATION_JSON_VALUE, produces = "application/json")
 	@ResponseBody
 	Competition create(@RequestBody Competition competition) throws URISyntaxException {
+		System.out.println("Competition" + competition);
 		return competitionService.create(competition);
 	}
 }

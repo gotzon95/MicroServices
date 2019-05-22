@@ -3,12 +3,13 @@ package com.certiorem.microservices.ModelDataService;
 
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
@@ -32,10 +33,10 @@ public class Category {
 	@Column(name = "MAX_TEAMS", nullable = false)
 	private Integer maxTeams;
 
-	@ManyToMany
+	@OneToMany(mappedBy="categoria")
 	private List<Team> equipos;
 	
-	@OneToOne(mappedBy = "category")
+	@OneToOne(mappedBy = "category", cascade=CascadeType.ALL)
     private Competition competition;
 	
 	

@@ -17,6 +17,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import com.certiorem.microservices.ModelDataService.Category;
+import com.certiorem.microservices.ModelDataService.CategoryType;
 import com.certiorem.microservices.ModelDataService.Driver;
 import com.certiorem.microservices.ModelDataService.Team;
 
@@ -60,7 +61,7 @@ public class TeamApiControllerTest {
 		
 		Category category = new Category();
 		category.setNombre("TestCategory");
-		category.setTipo("Moto");
+		category.setTipo(CategoryType.MOTOGP);
 		category.setFundado(1001);
 		category.setEquipos(teams);
 		

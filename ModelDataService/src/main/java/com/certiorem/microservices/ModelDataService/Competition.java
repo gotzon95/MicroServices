@@ -59,6 +59,14 @@ public class Competition {
 	public void setCategory(Category category) {
 		this.category = category;
 	}
+
+	@Override
+	public String toString() {
+		return "Competition [id=" + id + ", nombre=" + nombre + ", responsable=" + responsable + ", category="
+				+ category + "]";
+	}
+	
+	
 	
 	
 	

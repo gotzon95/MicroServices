@@ -8,8 +8,10 @@ public class CompetitionConstrants {
 
 	public static final String COMPETITION_SEARCH_PARAM = "id";
 
-	// CATEGORY
-	public static final String COMPETITION_CREATE = COMPETITION_CLASS_PARAM + "/create-competitions";
+	
+	public static final String COMPETITION_CREATE = COMPETITION_CLASS_PARAM + "/create";
+	
+	public static final String COMPETITION_MICROSERVICE_CREATE = "/createItem";
 
 	
 }

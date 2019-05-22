@@ -22,6 +22,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.client.RestTemplate;
 
+import com.certiorem.microservices.ModelDataService.Marca;
 import com.certiorem.microservices.ModelDataService.Team;
 import com.certiorem.microservices.application.services.TeamService;
 import com.certiorem.microservices.application.services.impl.TeamServiceImpl;
@@ -37,14 +38,22 @@ public class TeamServiceImplTest {
 	private RestTemplate restTemplate;
 
 	private Team team;
+	
+	private Marca marca;
 
 	@Before
 	public void beforeTest() throws URISyntaxException {
+		marca = new Marca();
+		marca.setNombre("Honda");
+		marca.setFundado(1977);
+		marca.setResponsable("Nakayima");
+		marca.setVictorias(58);
+		
 		team = new Team();
 		team.setId(1);
 		team.setNombre("Repsol Honda");
 		team.setFundado(1998);
-		team.setMotorizador("Honda");
+		team.setMotorizador(marca);
 		team.setResponsable("Nakamoto");
 		team.setVictorias(1324);
 
