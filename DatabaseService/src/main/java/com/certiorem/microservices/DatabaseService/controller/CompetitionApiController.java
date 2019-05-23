@@ -25,9 +25,5 @@ class CompetitionApiController {
 		System.out.println("Competition" + competition);
 		return competitionService.save(competition);
 	}
-	
-	
-	
-	
 
 }
